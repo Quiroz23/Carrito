@@ -4,7 +4,13 @@ import { useState, useEffect } from "react";
 import { db } from "./data/db";
 
 function App() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([])
+  const [cart, setCart] = useState([])
+
+
+  function addToCart(item) {
+    setCart(prevCart => [...prevCart, item])
+  }
 
   useEffect(() => {
     setData(db);
@@ -19,10 +25,14 @@ function App() {
 
         <div className="row mt-5">
           {data.map((guitar) => (
-            <Guitar
-            key={guitar.id} 
-            guitar ={guitar} 
+            <Guitar key={guitar.id} 
+            guitar={guitar} 
+            cart={cart}
+            setCart = {setCart}
+            addToCart = {addToCart}
             />
+            
+
           ))}
         </div>
       </main>
