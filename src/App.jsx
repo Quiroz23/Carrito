@@ -4,12 +4,20 @@ import { useState, useEffect } from "react";
 import { db } from "./data/db";
 
 function App() {
-  const [data, setData] = useState([])
-  const [cart, setCart] = useState([])
-
-
+  const [data, setData] = useState([]);
+  const [cart, setCart] = useState([]);
+    //Este es para agregar cosas puede ser en un carrito o para algo mas en el futuro
   function addToCart(item) {
-    setCart(prevCart => [...prevCart, item])
+    const itemsExists = cart.findIndex((guitar) => guitar.id === item.id);
+    if (itemsExists >= 0) {
+      //Existe en el carrito
+      const updatedCart = [...cart]
+      updatedCart[itemsExists].quantity++
+      setCart(updatedCart)
+    } else {
+      item.quantity = 1
+      setCart( [...cart, item]);
+    }
   }
 
   useEffect(() => {
@@ -18,21 +26,23 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header
+      cart = {cart}
+      
+      />
 
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
 
         <div className="row mt-5">
           {data.map((guitar) => (
-            <Guitar key={guitar.id} 
-            guitar={guitar} 
-            cart={cart}
-            setCart = {setCart}
-            addToCart = {addToCart}
+            <Guitar
+              key={guitar.id}
+              guitar={guitar}
+              cart={cart}
+              setCart={setCart}
+              addToCart={addToCart}
             />
-            
-
           ))}
         </div>
       </main>
