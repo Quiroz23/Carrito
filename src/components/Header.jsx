@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import Guitar from "./Guitar";
 
-export default function Header({ cart, removeFromCart, removeAllFromCart, increaseQuantity, decresQuantity }) {
+export default function Header({ cart, removeFromCart, clearCart, increaseQuantity, decresQuantity }) {
   //State derivado
   const isEmpty = useMemo(() => cart.length === 0, [cart]);
   const cartTotal = useMemo(
@@ -18,7 +18,7 @@ export default function Header({ cart, removeFromCart, removeAllFromCart, increa
               <a href="index.html">
                 <img
                   className="img-fluid"
-                  src="./public/img/logo.svg"
+                  src="/img/logo.svg"
                   alt="imagen logo"
                 />
               </a>
@@ -27,7 +27,7 @@ export default function Header({ cart, removeFromCart, removeAllFromCart, increa
               <div className="carrito">
                 <img
                   className="img-fluid"
-                  src="./public/img/carrito.png"
+                  src="/img/carrito.png"
                   alt="imagen carrito"
                 />
 
@@ -92,10 +92,8 @@ export default function Header({ cart, removeFromCart, removeAllFromCart, increa
                       <button
                         className="btn btn-dark w-100 mt-3 p-2"
                         type="button"
-                        onClick={() => removeAllFromCart(Guitar)}
-                      >
-                        Vaciar Carrito
-                      </button>
+                        onClick={clearCart}>
+                        Vaciar Carrito</button>
                     </>
                   )}
                 </div>
